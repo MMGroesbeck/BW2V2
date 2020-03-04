@@ -7,7 +7,6 @@ import * as Yup from "yup";
 const LoginFormBox = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  width: 25%;
 `;
 
 const LoginForm = ({ values, touched, errors, status }) => {

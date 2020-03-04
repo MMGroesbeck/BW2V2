@@ -7,7 +7,6 @@ import * as Yup from "yup";
 const RegFormBox = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  width: 25%;
 `;
 
 const RegForm = ({ values, touched, errors, status }) => {

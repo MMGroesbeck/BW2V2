@@ -7,6 +7,7 @@ import styled from "styled-components";
 const LogRegDiv = styled.div `
     display: flex;
     flex-flow: column nowrap;
+    align-items: center;
 `
 
 const LogReg = () => {
