@@ -12,6 +12,18 @@ const startData = [
         max: 15,
         instructor: "Tak Loufer",
         id: 1
+    },
+    {
+        name: "Yoga for Harmonica Players",
+        type: "yoga",
+        start: "9:30 pm",
+        duration: "90 min",
+        intensity: "high",
+        location: "Bellona park",
+        registered: 2,
+        max: 5,
+        instructor: "Lanya",
+        id: 2
     }
 ]
 
