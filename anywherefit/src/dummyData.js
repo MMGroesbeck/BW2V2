@@ -1,6 +1,15 @@
 import React from 'react';
 
-const startData = [
+const startData = {
+    users: [
+        {
+            name: "Tak Loufer",
+            instructor: true,
+            password: "12345",
+            enrolled: [1,2]
+        }
+    ],
+    classes: [
     {
         name: "Core Training for Beginners",
         type: "core",
@@ -26,5 +35,6 @@ const startData = [
         id: 2
     }
 ]
+}
 
 export default startData;
