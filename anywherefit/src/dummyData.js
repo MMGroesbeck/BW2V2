@@ -13,6 +13,7 @@ const startData = {
     {
         name: "Core Training for Beginners",
         type: "core",
+        date: "12/21/79",
         start: "10:00 am",
         duration: "45 min",
         intensity: "low",
@@ -25,6 +26,7 @@ const startData = {
     {
         name: "Yoga for Harmonica Players",
         type: "yoga",
+        date: "01/17/75",
         start: "9:30 pm",
         duration: "90 min",
         intensity: "high",

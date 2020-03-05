@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Route } from 'react-router-dom';
+import { Route, useHistory } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import startData from "./dummyData";
@@ -9,17 +9,36 @@ import LogReg from "./components/LoginReg";
 import Dashboard from "./components/Dashboard";
 
 function App() {
+  const history = useHistory();
   const [user, setUser] = useState({name:"",instructor:false,password:"",enrolled:[]});
   const loginUser = newUser => {
     userList.forEach(existingUser => {
       if ((existingUser.name === newUser.name) && (existingUser.password === newUser.password)){
         setUser(existingUser);
       }
+      history.push("/dashboard");
     })
   }
-  //"Fake server" states for user list and class list:
+  const updateUserClasses = (newClassList) => {
+    const updatedUser={
+      name: user.name,
+      instructor: user.instructor,
+      password: user.password,
+      enrolled: newClassList
+    }
+    setUserList([...userList.filter(thisUser => thisUser.name != user.name)], updatedUser);
+  }
+  const enroll = (id) => {
+    updateUserClasses([...user.enrolled, id]);
+    updateEnrollment(id, 1);
+  }
+  const withdraw = (id) => {
+    updateUserClasses(user.enrolled.filter(thisID => thisID != id));
+    updateEnrollment(id, -1);
+  }
   const [userList, setUserList] = useState(startData.users);
   const addUser = newUser => {
+    console.log("Adding user: ", newUser);
     setUserList([...userList, newUser]);
   }
   const [classList, setClassList] = useState(startData.classes);
@@ -29,6 +48,18 @@ function App() {
   const deleteClass = id => {
     setClassList(classList.filter(thisClass => thisClass.id != id));
   }
+  const updateEnrollment = (id, val) => {
+    let thisClass = {};
+    for (const currentClass in classList) {
+      if (currentClass.id === id){
+        thisClass = currentClass;
+        deleteClass(id);
+        addClass(thisClass);
+      }
+    }
+  }
+ 
+  //RETURN:
   return (
     <div className="App">
       <Header />
@@ -39,7 +70,7 @@ function App() {
         <LogReg activeUser={user} loginUser={loginUser} addUser={addUser}/>
       </Route>
       <Route path="/dashboard">
-        <Dashboard user={user} classList={classList} addClass={addClass} deleteClass={deleteClass}/>
+        <Dashboard activeUser={user} classList={classList} addClass={addClass} deleteClass={deleteClass} enroll={enroll} withdraw={withdraw}/>
       </Route>
     </div>
   );
