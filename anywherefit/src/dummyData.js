@@ -7,6 +7,12 @@ const startData = {
             instructor: true,
             password: "12345",
             enrolled: [1,2]
+        },
+        {
+            name: "Kid",
+            instructor: false,
+            password: "12345",
+            enrolled: [2]
         }
     ],
     classes: [
