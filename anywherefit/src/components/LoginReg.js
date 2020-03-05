@@ -10,12 +10,12 @@ const LogRegDiv = styled.div `
     align-items: center;
 `
 
-const LogReg = () => {
+const LogReg = ({activeUser, loginUser, addUser}) => {
     return (
         <LogRegDiv>
             <h1>Anywhere Fitness Login</h1>
-            <Route exact path="/login"><div><LoginForm /></div><div>First time? <Link to="login/register">Register</Link> instead.</div></Route>
-            <Route exact path="/login/register"><div><RegForm /></div><div>Already registered? <Link to="/login">Log in</Link> instead.</div></Route>
+            <Route exact path="/login"><div><LoginForm activeUser={activeUser} loginUser={loginUser}/></div><div>First time? <Link to="login/register">Register</Link> instead.</div></Route>
+            <Route exact path="/login/register"><div><RegForm activeUser={activeUser} loginUser={loginUser} addUser={addUser}/></div><div>Already registered? <Link to="/login">Log in</Link> instead.</div></Route>
         </LogRegDiv>
     );
 }

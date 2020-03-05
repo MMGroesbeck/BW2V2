@@ -9,7 +9,7 @@ const RegFormBox = styled.div`
   flex-flow: column nowrap;
 `;
 
-const RegForm = ({ values, touched, errors, status }) => {
+const RegForm = ({ values, touched, errors, status, activeUser, loginUser, addUser }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
     status && setUser(user => status);
@@ -78,12 +78,14 @@ const RegForm = ({ values, touched, errors, status }) => {
 };
 
 const FormikRegForm = withFormik({
-  mapPropsToValues({ name, password, passwordB, role }) {
+  mapPropsToValues({ name, password, passwordB, role, activeUser, loginUser, addUser }) {
     return {
       name: name || "",
       password: password || "",
       passwordB: passwordB || "",
-      role: role || "nochoice"
+      role: role || "nochoice",
+      loginUser: loginUser,
+      addUser: addUser
     };
   },
   validationSchema: Yup.object().shape({
@@ -99,16 +101,11 @@ const FormikRegForm = withFormik({
     role: Yup.mixed().notOneOf(["nochoice"], "Please choose a role.")
   }),
   handleSubmit(values, { setStatus, resetForm }) {
-    axios
-      .post("https://reqres.in/api/register", values)
-      .then(response => {
-        setStatus(response.data);
-        resetForm();
-        //React 2: will save token and redirect to "/dashboard".
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      console.log("handleSubmit called with: ", values)
+    const myUser = {name: values.name, password: values.password, instructor:(values.role==="instructor"), enrolled: []};
+    console.log("myUser: ", myUser);
+    values.addUser(myUser);
+    values.loginUser(myUser);
   }
 })(RegForm);
 

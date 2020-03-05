@@ -9,7 +9,7 @@ const LoginFormBox = styled.div`
   flex-flow: column nowrap;
 `;
 
-const LoginForm = ({ values, touched, errors, status }) => {
+const LoginForm = ({ values, touched, errors, status, activeUser, loginUser }) => {
   const [user, setUser] = useState({});
   useEffect(() => {
     status && setUser(user => status);
@@ -46,10 +46,11 @@ const LoginForm = ({ values, touched, errors, status }) => {
 };
 
 const FormikLoginForm = withFormik({
-  mapPropsToValues({ name, password }) {
+  mapPropsToValues({ name, password, activeUser, loginUser }) {
     return {
       name: name || "",
-      password: password || ""
+      password: password || "",
+      loginUser: loginUser
     };
   },
   validationSchema: Yup.object().shape({
@@ -61,16 +62,11 @@ const FormikLoginForm = withFormik({
       .required("Please enter a password.")
   }),
   handleSubmit(values, { setStatus, resetForm }) {
-    axios
-      .post("https://reqres.in/api/login", values)
-      .then(response => {
-        setStatus(response.data);
-        resetForm();
-        //React 2: will save token and redirect to "/dashboard".
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const myUser = {
+        name: values.name,
+        password: values.password
+    }
+    values.loginUser(myUser);
   }
 })(LoginForm);
 
