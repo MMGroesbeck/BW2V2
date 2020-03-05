@@ -13,12 +13,21 @@ const ResultsDiv = styled.div `
     align-items: center;
     `
 
-const ClassSrchList = ({activeUser, classList}) => {
+const ClassSrchList = ({currentList, enroll}) => {
+    const getEnroll = (currentClass) => {
+        return ((currentClass.registered < currentClass.max) ? enroll : false);
+    }
+    console.log("current list: ", currentList);
     const history = useHistory();
     return(
         <ResultsDiv>
             <h2>Search Results:</h2>
             <button onClick={() => history.push("/dashboard")}>Cancel</button>
+            {currentList.map((thisClass) => {
+                return (
+                    <ClassCard activeClass={thisClass} withdraw={false} deleteClass={false} enroll={getEnroll(thisClass)}/>
+                )
+            })}
         </ResultsDiv>
     )
 }

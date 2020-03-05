@@ -23,9 +23,9 @@ const ClassCard = ({activeClass, withdraw, enroll, deleteClass}) => {
             <p>Intensity: {activeClass.intensity}</p>
             <p>Location: {activeClass.location}</p>
             <p>Enrolled: {activeClass.registered}/{activeClass.max}</p>
-            {enroll && <button onClick={enroll(activeClass.id)}>Enroll</button>}
+            {/* {enroll && <button onClick={enroll(activeClass.id)}>Enroll</button>}
             {withdraw && <button onClick={withdraw(activeClass.id)}>Withdraw</button>}
-            {deleteClass && <button onClick={deleteClass(activeClass.id)}>Delete Class</button>}
+            {deleteClass && <button onClick={deleteClass(activeClass.id)}>Delete Class</button>} */}
         </CardDiv>
     )
 }
